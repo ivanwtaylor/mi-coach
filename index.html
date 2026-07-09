@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Compass MI Coach</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div>
+      <p class="eyebrow">Policy Dynamics Inc.</p>
+      <h1>Compass MI Coach</h1>
+      <p class="lede">A browser-based version of the Excel macro workbook. Conversations run locally in the browser; no responses are sent to a server by this static app.</p>
+    </div>
+    <div class="header-actions">
+      <button id="startButton" class="primary">Start new session</button>
+      <button id="resetButton" class="secondary">Reset</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <nav class="side-nav" aria-label="Application sections">
+      <button class="nav-button active" data-section="coach">MI Coach</button>
+      <button class="nav-button" data-section="worksheets">Worksheets</button>
+      <button class="nav-button" data-section="about">About / Deployment</button>
+    </nav>
+
+    <section id="coach" class="panel active" aria-labelledby="coach-title">
+      <div class="panel-heading">
+        <div>
+          <h2 id="coach-title">Conversation</h2>
+          <p>Use this as an MI-style coaching demonstration, not as clinical advice or a replacement for professional care.</p>
+        </div>
+        <div class="download-actions">
+          <button id="downloadLog" class="secondary">Download session log</button>
+          <button id="downloadScorecard" class="secondary">Download scorecard</button>
+        </div>
+      </div>
+
+      <div class="coach-grid">
+        <div class="chat-card">
+          <div id="chatWindow" class="chat-window" aria-live="polite"></div>
+          <form id="chatForm" class="chat-form">
+            <label for="userInput" class="sr-only">Your response</label>
+            <textarea id="userInput" rows="3" placeholder="Type your response here..." disabled></textarea>
+            <button id="sendButton" class="primary" type="submit" disabled>Send</button>
+          </form>
+        </div>
+
+        <aside class="metrics-card">
+          <h3>Live scorecard</h3>
+          <dl id="metricsList" class="metrics-list"></dl>
+          <h3>Session output</h3>
+          <pre id="scorecardOutput" class="output-box">Start a session to generate a scorecard.</pre>
+        </aside>
+      </div>
+    </section>
+
+    <section id="worksheets" class="panel" aria-labelledby="worksheets-title">
+      <div class="panel-heading">
+        <div>
+          <h2 id="worksheets-title">Workbook worksheets</h2>
+          <p>These are the workbook sheets converted into browser-readable data. The transcript and scorecard sheets update during a session.</p>
+        </div>
+        <div class="worksheet-controls">
+          <label for="sheetSelect">Sheet</label>
+          <select id="sheetSelect"></select>
+        </div>
+      </div>
+      <div id="worksheetTable" class="worksheet-table-wrap"></div>
+    </section>
+
+    <section id="about" class="panel" aria-labelledby="about-title">
+      <h2 id="about-title">About this conversion</h2>
+      <p>This web app ports the workbook’s `RunMICoach` VBA macro into JavaScript and embeds the workbook’s prompt worksheets as static data.</p>
+      <div class="note-grid">
+        <article>
+          <h3>What is included</h3>
+          <ul>
+            <li>All 39 workbook worksheets as browser data.</li>
+            <li>The prompt repositories used by the original macro.</li>
+            <li>The conversation state machine, classification rules, ask-tell-ask logic, transcript, and scorecard.</li>
+            <li>Downloadable session log and scorecard text files.</li>
+          </ul>
+        </article>
+        <article>
+          <h3>Important limitation</h3>
+          <p>Browsers cannot run Excel VBA directly. This is a functional JavaScript reimplementation, not an Excel/VBA runtime. It intentionally avoids server-side storage to reduce privacy risk.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Educational coaching prototype. Not medical advice. For urgent or personal medical decisions, consult a qualified health professional.</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
